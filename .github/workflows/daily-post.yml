@@ -1,0 +1,70 @@
+name: Daily Instagram Auto Post
+
+on:
+  schedule:
+    # UTC 12:00 = 日本時間(JST) 21:00。時刻を変えたい場合はここを編集してください。
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      post_type:
+        description: "post type: photo or reel"
+        required: false
+        default: "reel"
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      POST_TYPE: ${{ github.event.inputs.post_type || 'reel' }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate today's content (caption / image / video)
+        run: python scripts/main.py
+
+      - name: Read caption into output
+        id: caption
+        run: |
+          {
+            echo "text<<CAPTION_EOF"
+            cat output/caption.txt
+            echo "CAPTION_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Host media as a GitHub Release asset (public URL for Instagram to fetch)
+        id: upload
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          TAG="post-$(date -u +%Y%m%d-%H%M%S)"
+          if [ "$POST_TYPE" = "reel" ]; then
+            FILE="output/video.mp4"
+          else
+            FILE="output/image.jpg"
+          fi
+          FILENAME=$(basename "$FILE")
+          gh release create "$TAG" "$FILE" --title "$TAG" --notes "Automated daily Instagram post asset"
+          MEDIA_URL="https://github.com/${{ github.repository }}/releases/download/$TAG/$FILENAME"
+          echo "media_url=$MEDIA_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Post to Instagram
+        env:
+          MEDIA_URL: ${{ steps.upload.outputs.media_url }}
+          CAPTION: ${{ steps.caption.outputs.text }}
+          MEDIA_TYPE: ${{ github.event.inputs.post_type == 'photo' && 'IMAGE' || 'REELS' }}
+        run: python scripts/post_instagram.py

@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: "NotoSansJP";
+    src: local("Noto Sans JP");
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    width: 1280px; height: 670px;
+    font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+    overflow: hidden;
+  }
+  .bg {
+    width: 1280px; height: 670px;
+    background: linear-gradient(135deg, __COLOR1__ 0%, __COLOR2__ 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 90px;
+  }
+  .bg::before {
+    content: "";
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+  }
+  .bg::after {
+    content: "";
+    position: absolute;
+    bottom: -160px; left: -100px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.08);
+  }
+  .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.9);
+    color: __COLOR2__;
+    font-size: 26px;
+    font-weight: 700;
+    padding: 8px 24px;
+    border-radius: 999px;
+    width: fit-content;
+    margin-bottom: 28px;
+    letter-spacing: 2px;
+  }
+  .title {
+    color: #ffffff;
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.35;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    max-width: 1000px;
+    z-index: 1;
+  }
+  .title .line2 {
+    font-size: 44px;
+    font-weight: 700;
+    opacity: 0.95;
+    display: block;
+    margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="bg">
+    <div class="tag">__TAG__</div>
+    <div class="title">
+      __LINE1__
+      <span class="line2">__LINE2__</span>
+    </div>
+  </div>
+</body>
+</html>

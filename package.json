@@ -1,0 +1,19 @@
+{
+  "name": "sannkyu",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "note.com article + thumbnail generation automation",
+  "scripts": {
+    "thumbnail": "tsx scripts/generate-thumbnail.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^1.13.0",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

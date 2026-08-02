@@ -1,8 +1,52 @@
 import sharp, { Sharp } from "sharp";
-import { MAIN_IMAGE_SIZE, STAMP_MAX_SIZE, TAB_IMAGE_SIZE } from "./lineStamp";
+import {
+  CHROMA_KEY_COLOR,
+  MAIN_IMAGE_SIZE,
+  STAMP_MAX_SIZE,
+  TAB_IMAGE_SIZE,
+} from "./lineStamp";
 
 const TRANSPARENT = { r: 0, g: 0, b: 0, alpha: 0 };
 const MAX_FILE_BYTES = 1_000_000; // LINE Creators Market の目安上限（1ファイル1MB程度）
+
+// クロマキー背景色からの距離がこの範囲内なら完全透明、範囲を超えたら不透明。
+// 間はグラデーションでアルファ値を補間し、輪郭のギザギザを緩和する。
+const CHROMA_INNER_THRESHOLD = 60;
+const CHROMA_OUTER_THRESHOLD = 120;
+
+/**
+ * Gemini画像モデルは透過PNGを直接出力できないため、
+ * 単色クロマキー背景（緑）で生成させた画像から背景を透明化する。
+ */
+export async function chromaKeyToTransparent(input: Buffer): Promise<Buffer> {
+  const { data, info } = await sharp(input)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const { width, height, channels } = info;
+  const { r: kr, g: kg, b: kb } = CHROMA_KEY_COLOR;
+
+  for (let i = 0; i < data.length; i += channels) {
+    const dr = data[i] - kr;
+    const dg = data[i + 1] - kg;
+    const db = data[i + 2] - kb;
+    const distance = Math.sqrt(dr * dr + dg * dg + db * db);
+
+    if (distance <= CHROMA_INNER_THRESHOLD) {
+      data[i + 3] = 0;
+    } else if (distance < CHROMA_OUTER_THRESHOLD) {
+      const t =
+        (distance - CHROMA_INNER_THRESHOLD) /
+        (CHROMA_OUTER_THRESHOLD - CHROMA_INNER_THRESHOLD);
+      data[i + 3] = Math.round(255 * t);
+    }
+  }
+
+  return sharp(data, { raw: { width, height, channels } })
+    .png({ compressionLevel: 9 })
+    .toBuffer();
+}
 
 async function toPngUnderLimit(
   build: (opts: { palette: boolean; compressionLevel: number }) => Sharp

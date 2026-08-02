@@ -1,14 +1,15 @@
 # sannkyu — LINEスタンプ自動生成アプリ
 
-画像を1枚アップロードすると、AI（OpenAI `gpt-image-1`）が表情・ポーズ違いの
-LINEスタンプ風画像セットを自動生成する Next.js アプリです。
+画像を1枚アップロードすると、AI（Google Gemini `gemini-2.5-flash-image` /
+通称 Nano Banana）が表情・ポーズ違いのLINEスタンプ風画像セットを自動生成する
+Next.js アプリです。
 
 ## 主な機能
 
 - 画像アップロード（PNG / JPEG / WebP）
 - スタンプ枚数の選択（8 / 16 / 24 / 32 / 40 枚 — LINE Creators Market の提出枚数に対応）
 - 表情・ポーズ違いのプリセット（「ありがとう」「OK!」「ごめんね」など）を元にAIが
-  背景透過のスタンプ画像を自動生成
+  スタンプ画像を自動生成
 - LINE Creators Market の目安サイズに自動リサイズ
   - スタンプ本体: 最大 370×320px
   - メイン画像: 240×240px
@@ -23,7 +24,7 @@ LINEスタンプ風画像セットを自動生成する Next.js アプリです�
 ```bash
 npm install
 cp .env.example .env.local
-# .env.local に OPENAI_API_KEY を設定
+# .env.local に GEMINI_API_KEY を設定
 npm run dev
 ```
 
@@ -33,21 +34,31 @@ npm run dev
 
 | 変数名 | 説明 |
 | --- | --- |
-| `OPENAI_API_KEY` | OpenAI の画像生成API（`gpt-image-1`）を利用するためのAPIキー |
+| `GEMINI_API_KEY` | Google Gemini API（[Google AI Studio](https://aistudio.google.com/apikey)で発行）を利用するためのAPIキー |
+| `GEMINI_IMAGE_MODEL`（任意） | 使用する画像生成モデル。デフォルトは `gemini-2.5-flash-image`。高品質が必要なら `gemini-3-pro-image` 等に変更可能 |
 
 ## 仕組み
 
 1. ブラウザから画像とオプション（枚数・キャラクターの特徴）を `/api/generate` にPOST
-2. サーバー側で表情/ポーズのプリセットごとに OpenAI Images Edit API
-   （`gpt-image-1`, `background: transparent`）を呼び出し、元画像をベースに
-   スタンプ用イラストを生成
-3. `sharp` でLINEの規定サイズに合わせてリサイズ（スタンプ本体・メイン画像・タブ画像）
-4. 生成結果をJSONで返却し、フロントエンドでプレビュー表示
-5. 「ZIPで一括ダウンロード」ボタンでブラウザ側（`jszip` + `file-saver`）にZIP化して保存
+2. サーバー側で表情/ポーズのプリセットごとに Gemini の画像生成モデル
+   （`gemini-2.5-flash-image`）を呼び出し、元画像をベースにスタンプ用イラストを生成
+3. Gemini の画像モデルは透過PNGを直接出力できないため、生成時は単色の
+   クロマキーグリーン背景で描かせ、`sharp` でその背景色をアルファ透過に変換
+   （`lib/imageProcessing.ts` の `chromaKeyToTransparent`）
+4. `sharp` でLINEの規定サイズに合わせてリサイズ（スタンプ本体・メイン画像・タブ画像）
+5. 生成結果をJSONで返却し、フロントエンドでプレビュー表示
+6. 「ZIPで一括ダウンロード」ボタンでブラウザ側（`jszip` + `file-saver`）にZIP化して保存
+
+### クロマキー処理について
+
+キャラクターの色や輪郭線に緑を使わないようプロンプトで指示していますが、
+被写体に緑色が含まれる場合は背景と誤認識され、部分的に透明になることがあります。
+その場合はプロンプト（`lib/lineStamp.ts` の `buildStampPrompt`）のキー色や
+`chromaKeyToTransparent` のしきい値を調整してください。
 
 ## コスト・時間について
 
-- 1枚のスタンプ生成につき OpenAI の画像生成APIが1回呼び出されます（従量課金）。
+- 1枚のスタンプ生成につき Gemini の画像生成APIが1回呼び出されます（従量課金）。
 - 40枚生成する場合はAPI呼び出しが40回発生し、数分かかることがあります。
 - サーバーの同時実行数は3並列に制限しています（`app/api/generate/route.ts` の `CONCURRENCY`）。
 
@@ -55,4 +66,4 @@ npm run dev
 
 - 生成プロンプト（表情・セリフ）のカスタム編集UI
 - 生成失敗したスタンプだけ個別に再生成
-- 他の画像生成API（Google Gemini など）への切り替え対応
+- クロマキー処理の精度向上（エッジのフリンジ除去など）

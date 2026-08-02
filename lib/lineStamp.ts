@@ -57,6 +57,10 @@ export function getPresetsForCount(count: number) {
   return STAMP_PRESETS.slice(0, count);
 }
 
+// クロマキー合成用の背景色。生成AIが透過PNGを直接出力できないため、
+// この単色で背景を塗らせてから imageProcessing.ts 側で透明化する。
+export const CHROMA_KEY_COLOR = { r: 0, g: 255, b: 0 };
+
 export function buildStampPrompt(
   emotion: string,
   caption: string,
@@ -70,7 +74,9 @@ export function buildStampPrompt(
     `${base}を、LINEスタンプ向けのシンプルでかわいいイラストに変換してください。`,
     `ポーズ・表情: ${emotion}。`,
     `画面内に大きく太いフチ文字（白フチ＋濃い色の縁取り）で「${caption}」という短い日本語テキストを読みやすく配置してください。`,
-    "背景は完全に透明にしてください。太めの輪郭線のある、はっきりとしたスタンプ風のデザインにしてください。",
+    "背景は必ず単色のクロマキーグリーン（RGB 0,255,0 の鮮やかな黄緑色）だけで塗りつぶしてください。グラデーション・模様・影を背景に付けないでください。",
+    "キャラクターや文字、輪郭線には緑色を使わないでください（背景と混同されないようにするため）。",
+    "太めの輪郭線のある、はっきりとしたスタンプ風のデザインにしてください。",
     "キャラクターの見た目（色・特徴）は元画像から一貫させてください。",
     "画像の端はキャラクターやテキストが切れないよう余白を保ってください。",
   ].join("\n");

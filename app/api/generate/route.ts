@@ -4,9 +4,10 @@ import {
   buildStampPrompt,
   getPresetsForCount,
 } from "@/lib/lineStamp";
-import { generateStampImage } from "@/lib/openai";
+import { generateStampImage } from "@/lib/gemini";
 import {
   bufferToDataUrl,
+  chromaKeyToTransparent,
   toMainImage,
   toStampImage,
   toTabImage,
@@ -99,15 +100,15 @@ export async function POST(req: NextRequest) {
 
   try {
     // 事前チェック: APIキー未設定なら早期にエラーを返す
-    const { getOpenAIClient } = await import("@/lib/openai");
-    getOpenAIClient();
+    const { getGeminiClient } = await import("@/lib/gemini");
+    getGeminiClient();
   } catch (error) {
     return NextResponse.json(
       {
         error:
           error instanceof Error
             ? error.message
-            : "OpenAI APIの設定を確認してください。",
+            : "Gemini APIの設定を確認してください。",
       },
       { status: 500 }
     );
@@ -117,16 +118,16 @@ export async function POST(req: NextRequest) {
     const prompt = buildStampPrompt(preset.emotion, preset.caption, description);
     const raw = await generateStampImage({
       imageBuffer,
-      imageFileName: file.name || "input.png",
       imageMimeType: file.type,
       prompt,
     });
-    const stampBuffer = await toStampImage(raw);
+    const transparent = await chromaKeyToTransparent(raw);
+    const stampBuffer = await toStampImage(transparent);
     return {
       caption: preset.caption,
       emotion: preset.emotion,
       dataUrl: bufferToDataUrl(stampBuffer),
-      rawBuffer: raw,
+      rawBuffer: transparent,
     };
   });
 

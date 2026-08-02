@@ -47,18 +47,17 @@ async function main() {
   const { prompt, out, width, height } = parseArgs(process.argv.slice(2));
 
   const ai = new GoogleGenAI({ apiKey });
-  const model = process.env.IMAGEN_MODEL ?? "imagen-4.0-generate-001";
+  const model = process.env.IMAGEN_MODEL ?? "gemini-3.1-flash-image";
 
-  const response = await ai.models.generateImages({
+  const response = await ai.models.generateContent({
     model,
-    prompt,
-    config: {
-      numberOfImages: 1,
-      aspectRatio: "16:9",
-    },
+    contents: `${prompt} (16:9 widescreen composition)`,
   });
 
-  const image = response.generatedImages?.[0]?.image?.imageBytes;
+  const imagePart = response.candidates?.[0]?.content?.parts?.find(
+    (part) => part.inlineData?.data,
+  );
+  const image = imagePart?.inlineData?.data;
   if (!image) {
     console.error("Gemini returned no image data for this prompt.");
     process.exit(1);

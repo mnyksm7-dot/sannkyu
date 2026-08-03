@@ -13,6 +13,7 @@ note(note.com)とInstagramを連携させて、ライフスタイル・日常エ
 - `sns/instagram-posts.md` — note記事と連動したInstagram投稿(カルーセル構成・キャプション)の下書き
 - `sns/note-funnel.md` — InstagramからNoteへ読者を誘導する導線設計
 - `sns/images/` — Instagram投稿・プロフィールアイコン用の画像
+- `automation/` — Instagram Graph APIを使った自動投稿スクリプト(セットアップ手順は `automation/README.md`)
 
 ## 使い方
 
@@ -23,6 +24,7 @@ note(note.com)とInstagramを連携させて、ライフスタイル・日常エ
 5. note投稿の翌日に、対応するInstagramの下書き(`sns/instagram-posts.md`)を投稿する
 6. `sns/note-funnel.md` の通り、プロフィールリンク・キャプション・ストーリーズでnoteへ送客する
 7. 投稿後の反応を見ながら `articles/ideas.md` にネタを追記していく
+8. Instagramを完全自動投稿にしたい場合は `automation/README.md` の手順でAPI連携をセットアップする
 
 ## 画像生成について(補足)
 

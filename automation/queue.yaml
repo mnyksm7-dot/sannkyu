@@ -1,0 +1,100 @@
+# Instagram自動投稿キュー
+#
+# - image_url は Instagram のサーバーが取得できる「公開URL」である必要がある。
+#   sns/images/ に画像ファイルを追加してリポジトリにpushした後、
+#   下記のURLのブランチ名(現在は claude/note-monetization-hal40w)を
+#   実際に画像が存在するブランチ(main にマージ後は main)に合わせて書き換えること。
+# - posted: false のものの中で、上から最初に見つかった1件だけを run_queue.py が投稿する。
+# - 投稿が終わると posted: true, posted_at, ig_media_id が自動で書き込まれる。
+
+posts:
+  - id: "01-morning-routine"
+    type: single
+    image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/01-morning-routine.png"
+    caption: |
+      アラームを止めた瞬間、もう一日は始まっている。
+
+      起きてすぐスマホを見るのが当たり前だった私が、
+      「情報を見る前に3分だけ自分の時間を作る」に変えただけで、
+      一日の"だるさ"の始まり方が変わった。
+
+      試した3つのルーティンのうち、続かなかったものと、
+      今も続けているものをnoteにまとめました。
+
+      ―――
+      続きはnoteで📝(プロフィールのリンクから)
+      #エッセイ #朝活 #習慣化 #ライフスタイル #日常
+    posted: false
+    posted_at: null
+    ig_media_id: null
+
+  - id: "02-shallow-friendships"
+    type: single
+    image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/02-shallow-friendships.png"
+    caption: |
+      「なんでも話せる親友」を求めなくなってから、
+      人間関係が驚くほど楽になった。
+
+      深い関係を否定する話じゃない。
+      ただ、"軽い関係"にも価値があるって、
+      知らなかっただけだった。
+
+      ―――
+      続きはnoteで📝(プロフィールのリンクから)
+      #エッセイ #人間関係 #友達 #ライフスタイル #日常
+    posted: false
+    posted_at: null
+    ig_media_id: null
+
+  - id: "03-not-trying-hard"
+    type: single
+    image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/03-not-trying-hard.png"
+    caption: |
+      「頑張ること」と「成果を出すこと」は、
+      実は別物だった。
+
+      全力疾走をやめて、力の入れどころを絞ったら、
+      評価は下がらず、仕事は"続けられるもの"になった。
+
+      ―――
+      続きはnoteで📝(プロフィールのリンクから)
+      #エッセイ #働き方 #仕事の悩み #ライフスタイル #日常
+    posted: false
+    posted_at: null
+    ig_media_id: null
+
+  - id: "04-quit-saving-obsession"
+    type: single
+    image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/04-quit-saving-obsession.png"
+    caption: |
+      節約をやめたら、貯金が増えた。
+
+      我慢を積み重ねる節約には、
+      必ず反動が来る。
+
+      大事なのは、何を削るかより
+      「何にお金を使うと自分が満たされるか」を知ること。
+
+      ―――
+      続きはnoteで📝(プロフィールのリンクから)
+      #エッセイ #節約 #お金の話 #ライフスタイル #日常
+    posted: false
+    posted_at: null
+    ig_media_id: null
+
+  - id: "05-three-years-of-journaling"
+    type: single
+    image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/05-three-years-of-journaling.png"
+    caption: |
+      日記の本当の効能は、
+      「振り返ること」より「書いている最中」にあった。
+
+      3年続けてわかった3つの効能と、
+      三日坊主にならないための3つのルールをまとめました。
+
+      ―――
+      続きはnoteで📝(プロフィールのリンクから)
+      #エッセイ #日記 #習慣 #自己理解 #ライフスタイル
+    posted: false
+    posted_at: null
+    ig_media_id: null

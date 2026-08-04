@@ -87,6 +87,19 @@ cd automation && AUTO_COMMIT=true python run_queue.py
 を定期的(例:週2〜3回)に実行するよう設定できる。設定を希望する場合は伝えてほしい。
 `AUTO_COMMIT=true` を付けると、投稿成功後に `queue.yaml` の更新を自動でcommit・pushする。
 
+## トークンの更新(60日ごと)
+
+```bash
+export IG_ACCESS_TOKEN=xxxxxxxxxx
+export META_APP_ID=xxxxxxxxxx
+export META_APP_SECRET=xxxxxxxxxx
+python refresh_token.py
+```
+
+新しいトークンが標準出力に表示されるので、Claude Codeの環境変数設定で
+`IG_ACCESS_TOKEN` の値をそれに更新する。**この更新後の値を環境変数へ反映する操作だけは
+自動化できないため、60日より短い間隔(目安:月1回)でのRoutine実行 + 手動反映が必要になる。**
+
 ## 制限事項
 
 - Instagram Graph APIのレート制限: 1アカウントあたり24時間で最大25投稿まで

@@ -1,11 +1,14 @@
 # Instagram自動投稿キュー
 #
 # - image_url は Instagram のサーバーが取得できる「公開URL」である必要がある。
-#   sns/images/ に画像ファイルを追加してリポジトリにpushした後、
-#   下記のURLのブランチ名(現在は claude/note-monetization-hal40w)を
-#   実際に画像が存在するブランチ(main にマージ後は main)に合わせて書き換えること。
+#   2通りの方法がある:
+#   (a) 画像生成ツールが返すCDN URLをそのまま使う(リポジトリへの保存は不要、最も簡単)
+#   (b) sns/images/ に画像ファイルを追加してpushし、
+#       https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/<ブランチ名>/sns/images/xxx.png
+#       の形式で参照する(リポジトリに保存物として残したい場合)
 # - posted: false のものの中で、上から最初に見つかった1件だけを run_queue.py が投稿する。
 # - 投稿が終わると posted: true, posted_at, ig_media_id が自動で書き込まれる。
+# - 新しい記事が追加された時は、このファイルの末尾に新しいpostエントリを追記していく。
 
 posts:
   - id: "01-morning-routine"

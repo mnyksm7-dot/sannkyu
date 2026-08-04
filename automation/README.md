@@ -1,3 +1,24 @@
+# 自動化スクリプト一覧
+
+- `generate_thumbnail.py` — サムネイル画像の生成(**完全無料**、外部API不要)
+- `instagram_api.py` / `run_queue.py` — Instagram Graph APIへの自動投稿(Instagram公式APIは無料、ただし取得手順が必要)
+- `refresh_token.py` — アクセストークンの更新
+
+## サムネイル生成(費用ゼロ)
+
+`generate_thumbnail.py` は Pillow(ローカルの画像処理ライブラリ)とシステム内蔵の日本語フォント
+(IPAゴシック)だけでサムネイルを描画する。画像生成AIのAPIも課金も一切発生しない。
+
+```bash
+pip install -r requirements.txt
+python generate_thumbnail.py --title "記事タイトル" --output ../articles/thumbnails/07-xxx.png --format note
+python generate_thumbnail.py --title "記事タイトル" --output ../sns/images/07-xxx.png --format instagram
+python generate_thumbnail.py --output ../sns/images/profile-icon.png --format profile
+```
+
+ブランドカラー(ベージュ/ダスティブルー/テラコッタ)のグラデーション背景に、タイトルを自動改行して
+配置する。デザインを変えたい場合は `PALETTE` 変数(色の組み合わせ)を編集する。
+
 # Instagram自動投稿(Graph API)
 
 `sns/instagram-posts.md` の内容を、Instagram公式のContent Publishing API(Graph API)を使って

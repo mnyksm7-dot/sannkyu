@@ -26,9 +26,14 @@ note(note.com)とInstagramを連携させて、ライフスタイル・日常エ
 7. 投稿後の反応を見ながら `articles/ideas.md` にネタを追記していく
 8. Instagramを完全自動投稿にしたい場合は `automation/README.md` の手順でAPI連携をセットアップする
 
-## 画像生成について(補足)
+## サムネイル画像について
 
-サムネイル・Instagram画像は生成済みでチャット上に表示されていますが、この実行環境のネットワークポリシー上、
-画像ホスト(cloudfront)から直接ファイルをダウンロードしてリポジトリにコミットすることができませんでした。
-`articles/thumbnails/` と `sns/images/` はプレースホルダーのディレクトリとして用意してあるので、
-チャットに表示された画像を手元に保存し、このフォルダに配置してください。
+`articles/thumbnails/` と `sns/images/` の画像は `automation/generate_thumbnail.py` で生成している。
+外部の画像生成AIを使わず、Pillow(ローカルのライブラリ)とシステム内蔵の日本語フォントだけで
+グラデーション背景+タイトル文字を描画する仕組みなので、**費用も外部API利用も一切不要**。
+
+```bash
+pip install -r automation/requirements.txt
+python automation/generate_thumbnail.py --title "記事タイトル" --output articles/thumbnails/07-xxx.png --format note
+python automation/generate_thumbnail.py --title "記事タイトル" --output sns/images/07-xxx.png --format instagram
+```

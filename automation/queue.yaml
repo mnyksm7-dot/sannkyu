@@ -85,6 +85,26 @@ posts:
     posted_at: null
     ig_media_id: null
 
+  - id: "06-vague-irritation"
+    type: single
+    image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/06-vague-irritation.png"
+    caption: |
+      フライパンの油が跳ねただけで、驚くほどイラッとした日があった。
+
+      理由を探して一日を書き出してみたら、
+      朝から晩まで「自分のペースで動けた瞬間」が
+      一度もなかったことに気づいた。
+
+      不機嫌の正体を分解する3つの質問と、
+      1ヶ月続けてわかったことをまとめました。
+
+      ―――
+      続きはnoteで📝(プロフィールのリンクから)
+      #エッセイ #自己理解 #メンタル #ライフスタイル #日常
+    posted: false
+    posted_at: null
+    ig_media_id: null
+
   - id: "05-three-years-of-journaling"
     type: single
     image_url: "https://raw.githubusercontent.com/mnyksm7-dot/sannkyu/claude/note-monetization-hal40w/sns/images/05-three-years-of-journaling.png"

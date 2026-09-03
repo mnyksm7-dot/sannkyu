@@ -34,8 +34,23 @@ note.com投稿用の記事下書きを`drafts/`に自動生成しGitHubへpush�
 - ②のWorkerコード・楽天API認証情報（applicationId/accessKey/affiliateId）は
   このリポジトリには含めない（別リポジトリ／ローカルのみで管理）。
 
-## 運用フロー
+## 運用フロー（公開は「Claude in Chrome」での一言指示）
 
-1. `drafts/`に新しい下書きが増えていたら `git pull`
-2. note.comに下書きを貼り付け、必要なら手直し
-3. 公開して良ければ「公開して」の指示で公開
+note.comには公式の投稿APIがなく、ログイン情報をサーバー側に保存して無人で
+自動投稿する構成は「アカウント乗っ取りリスク」「利用規約に抵触する可能性」
+「人のチェックなしで誤った内容が公開されるリスク」があるため採用していない。
+代わりに、あなた自身がnote.comにログイン済みのブラウザ上で
+「Claude in Chrome」拡張機能にひと言頼む形にする。
+
+1. `drafts/`に新しい下書きが増えたら（毎朝自動で増える）
+2. note.comに**普段通り自分でログイン**しておく
+3. claude.aiの通常チャット（Claude in Chrome有効）で
+
+   > 今日のdraftsの記事をnote.comに貼り付けて公開して
+
+   と頼むと、あなたのログイン済みセッションのままClaudeが貼り付け〜公開まで代行する
+
+### 準備（初回のみ）
+
+- Chrome拡張機能「Claude for Chrome」をインストール
+- claude.aiの「設定 → Claude in Chrome」で有効化

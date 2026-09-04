@@ -1,0 +1,193 @@
+/* ==========================================================
+   クルメスターズ少年野球クラブ — スタイルシート
+   配色: グラウンド(グリーン) × クレイ(オレンジ) × 白
+   ========================================================== */
+:root{
+  --green-900:#0f3d2e;
+  --green-800:#155c40;
+  --green-700:#1c7a50;
+  --clay:#d97b3f;
+  --clay-dark:#b8622c;
+  --cream:#fbf7ef;
+  --ink:#1c2420;
+  --line:#e4ddcd;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(15,61,46,.14);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{margin:0 0 .5em;line-height:1.35;font-weight:800}
+p{margin:0 0 1em}
+
+/* ---------- header ---------- */
+.header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(15,61,46,.96);
+  backdrop-filter:blur(6px);
+  color:#fff;
+}
+.header-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;flex-direction:column;line-height:1.1}
+.logo strong{font-size:1.15rem;letter-spacing:.02em}
+.logo span{font-size:.72rem;color:#bfe3d1;margin-top:2px}
+.nav{display:flex;align-items:center;gap:22px;font-size:.92rem}
+.nav a{opacity:.92;padding:6px 2px;border-bottom:2px solid transparent;transition:.2s}
+.nav a:hover{border-color:var(--clay);opacity:1}
+.nav .btn-mini{
+  background:var(--clay);color:#fff;padding:9px 16px;border-radius:999px;font-weight:700;
+}
+.menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+.menu-btn span{width:24px;height:2px;background:#fff;display:block}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;overflow:hidden;color:#fff;
+  background:
+    radial-gradient(1100px 500px at 85% -10%, rgba(217,123,63,.35), transparent 60%),
+    linear-gradient(160deg,var(--green-900) 0%,var(--green-800) 55%,var(--green-700) 100%);
+  padding:96px 0 84px;
+}
+.hero::after{
+  content:"";position:absolute;inset:auto -10% -35% auto;width:640px;height:640px;
+  border-radius:50%;border:2px dashed rgba(255,255,255,.18);
+}
+.hero-in{position:relative;z-index:2;max-width:640px}
+.kicker{
+  font-size:.8rem;letter-spacing:.14em;color:var(--clay);font-weight:700;margin:0 0 14px;
+  text-transform:uppercase;
+}
+.hero h1{font-size:clamp(2rem,4.6vw,3.1rem);letter-spacing:.02em}
+.hero h1 em{color:var(--clay);font-style:normal}
+.hero .lead{font-size:1.02rem;color:#e4f2ea;max-width:520px}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;
+  font-weight:700;font-size:.95rem;transition:.2s transform,.2s box-shadow;
+}
+.btn.orange{background:var(--clay);color:#fff;box-shadow:0 10px 24px rgba(217,123,63,.35)}
+.btn.orange:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(217,123,63,.42)}
+.btn.outline{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+.btn.outline:hover{background:rgba(255,255,255,.1)}
+
+/* ---------- section shared ---------- */
+section{padding:88px 0}
+.section-kicker{
+  font-size:.78rem;letter-spacing:.14em;color:var(--clay-dark);font-weight:800;
+  text-transform:uppercase;margin:0 0 10px;
+}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.section-head p{max-width:360px;color:#5b6660;margin:0}
+
+/* ---------- about ---------- */
+.about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.about-badge{
+  aspect-ratio:1/1;border-radius:var(--radius);
+  background:linear-gradient(150deg,var(--green-800),var(--green-700));
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);
+}
+.about-badge span{font-size:5rem}
+.about-copy h2 span{color:var(--green-800)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.chips span{
+  background:#eef3ea;color:var(--green-800);padding:8px 16px;border-radius:999px;
+  font-size:.85rem;font-weight:700;
+}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.stat{background:var(--cream);border-radius:12px;padding:18px;text-align:center;border:1px solid var(--line)}
+.stat b{display:block;font-size:1.6rem;color:var(--green-800)}
+.stat small{color:#6b7570;font-size:.78rem}
+
+/* ---------- news ---------- */
+.news{background:var(--cream)}
+.news-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.news-item{
+  display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline;flex-wrap:wrap;
+}
+.news-item time{color:#8a938c;font-size:.85rem;min-width:96px}
+.news-item .tag{
+  background:var(--green-800);color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;
+  border-radius:999px;
+}
+.news-item p{margin:0;flex:1;min-width:200px}
+
+/* ---------- schedule ---------- */
+.schedule{background:#fff}
+.schedule-table{width:100%;border-collapse:collapse;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.schedule-table th,.schedule-table td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.schedule-table th{background:var(--green-900);color:#fff;font-weight:700;font-size:.86rem}
+.schedule-table tr:last-child td{border-bottom:0}
+.schedule-table td:first-child{font-weight:700;color:var(--green-800);white-space:nowrap}
+.schedule-note{margin-top:18px;font-size:.85rem;color:#6b7570}
+
+/* ---------- recruit ---------- */
+.recruit{background:linear-gradient(160deg,var(--green-900),var(--green-700));color:#fff}
+.recruit .section-kicker{color:var(--clay)}
+.recruit-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.recruit-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.recruit-list li{
+  display:flex;gap:14px;padding:16px 18px;background:rgba(255,255,255,.08);
+  border-radius:12px;border:1px solid rgba(255,255,255,.14);
+}
+.recruit-list b{min-width:96px;color:var(--clay);font-size:.85rem}
+.recruit-card{
+  background:#fff;color:var(--ink);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);
+}
+.recruit-card h3{color:var(--green-800)}
+
+/* ---------- access ---------- */
+.access{background:#fff}
+.access-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.access dl{margin:0;display:flex;flex-direction:column;gap:18px}
+.access dl div{display:flex;gap:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.access dt{min-width:88px;font-weight:800;color:var(--green-800);font-size:.85rem;letter-spacing:.05em}
+.access dd{margin:0;color:var(--ink)}
+.map-placeholder{
+  border-radius:var(--radius);background:var(--cream);border:1px dashed var(--line);
+  display:flex;align-items:center;justify-content:center;min-height:280px;color:#8a938c;
+  font-size:.85rem;text-align:center;padding:24px;
+}
+
+/* ---------- cta ---------- */
+.cta{background:var(--clay);color:#fff}
+.cta-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta h2{margin:0}
+.cta-btn{
+  background:#fff;color:var(--clay-dark);padding:16px 30px;border-radius:999px;font-weight:800;
+  display:inline-flex;align-items:center;gap:10px;
+}
+
+/* ---------- footer ---------- */
+footer{background:var(--green-900);color:#bfe3d1;padding:36px 0}
+.footer-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+footer .logo strong{color:#fff}
+footer small{color:#7fa895;font-size:.8rem}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .about-grid,.recruit-grid,.access-grid{grid-template-columns:1fr;gap:32px}
+  .stat-row{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:720px){
+  .nav{
+    position:fixed;inset:68px 0 auto 0;background:var(--green-900);flex-direction:column;
+    align-items:flex-start;padding:20px 24px;gap:14px;transform:translateY(-8px);opacity:0;
+    pointer-events:none;transition:.2s;border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .nav.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .menu-btn{display:flex}
+  section{padding:64px 0}
+  .schedule-table{font-size:.85rem}
+  .schedule-table th,.schedule-table td{padding:12px}
+}

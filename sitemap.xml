@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://mnyksm7-dot.github.io/sannkyu/</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mnyksm7-dot.github.io/sannkyu/assets/hero.jpg</image:loc>
+      <image:title>BAR HOUSE 久留米・日吉町のカウンターと店内</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mnyksm7-dot.github.io/sannkyu/assets/counter.jpg</image:loc>
+      <image:title>BAR HOUSEのカウンター席</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mnyksm7-dot.github.io/sannkyu/assets/mirror.jpg</image:loc>
+      <image:title>鏡越しに見えるBAR HOUSEの店内</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mnyksm7-dot.github.io/sannkyu/assets/sofa.jpg</image:loc>
+      <image:title>BAR HOUSEのソファ席</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mnyksm7-dot.github.io/sannkyu/assets/bar.jpg</image:loc>
+      <image:title>BAR HOUSEのボトルとカウンター</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://mnyksm7-dot.github.io/sannkyu/blog/</loc>

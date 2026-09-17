@@ -1,0 +1,12 @@
+{
+  "name": "BAR HOUSE｜久留米・日吉町",
+  "short_name": "BAR HOUSE",
+  "start_url": "/sannkyu/",
+  "display": "standalone",
+  "background_color": "#221c12",
+  "theme_color": "#302219",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
